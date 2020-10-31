@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zky10.mdf.transfer.mapper.BaseSelectMapper">
+
+    <select id="getExistTables" resultType="java.lang.String">
+        SELECT TABLE_NAME FROM USER_TABLES WHERE TABLE_NAME IN (
+          <foreach collection="tables" item="item" separator=",">
+              #{item}
+          </foreach>
+        )
+    </select>
+</mapper>

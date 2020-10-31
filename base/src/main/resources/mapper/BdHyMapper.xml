@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zky10.mdf.transfer.mapper.BdHyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zky10.mdf.transfer.pojo.entity.BdHy">
+        <id column="ID" property="id" />
+        <result column="YWLX" property="ywlx" />
+        <result column="JHFL" property="jhfl" />
+        <result column="BLLB" property="bllb" />
+        <result column="XM_MAN" property="xmMan" />
+        <result column="XM_WOMAN" property="xmWoman" />
+        <result column="SFZH_MAN" property="sfzhMan" />
+        <result column="SFZH_WOMAN" property="sfzhWoman" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="ENTERING_TIME" property="enteringTime" />
+        <result column="PIC" property="pic" />
+        <result column="OP_DATE" property="opDate" />
+        <result column="GSDDM" property="gsddm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, YWLX, JHFL, BLLB, XM_MAN, XM_WOMAN, SFZH_MAN, SFZH_WOMAN, CREATE_TIME, UPDATE_TIME, ENTERING_TIME, PIC, OP_DATE, GSDDM
+    </sql>
+
+</mapper>
