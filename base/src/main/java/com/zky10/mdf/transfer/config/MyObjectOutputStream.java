@@ -26,6 +26,12 @@ public class MyObjectOutputStream extends ObjectOutputStream {
         // 将每次添加对象头的操作去掉，每次不添加。解析的时候也不需要读取了。
     }
 
+    /**
+     * 获取指向指定文件的 输出流
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
     public static MyObjectOutputStream newInstance(String fileName) throws IOException {
         return new MyObjectOutputStream(new FileOutputStream(fileName));
     }

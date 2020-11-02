@@ -94,7 +94,6 @@ public class DataTransferToDB {
         });
 //        bdHyTransfer();
 
-
         try {
             log.info("五个线程都已经完成。");
             log.info("当前 countDown ..... {}", countDownLatch.getCount());
@@ -103,12 +102,9 @@ public class DataTransferToDB {
             log.error("线程等待发生异常。。。。{}", e.getMessage(), e);
         }
 
-
-
         countDownLatch.getCount();
         log.info("当前 countDown ..... {}", countDownLatch.getCount());
         System.out.println("======================end " + System.currentTimeMillis());
-
 
         transferExecutor.shutdown();
 

@@ -1,8 +1,9 @@
 package com.zky10.mdf.transfer.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.cc.base.common.domain.BaseModel;
+import com.cc.base.common.domain.Model;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,9 +18,15 @@ import java.time.LocalDateTime;
  */
 @TableName("BD_HY")
 @Data
-public class BdHy extends BaseModel<BdHy> {
+public class BdHy extends Model<BdHy> {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 主键id
+     */
+    @TableId(value = "ID")
+    private Long ID;
 
     /**
      * 业务类型:ia-结婚登记  ib-离婚登记 ica-补发结婚 icb-补发离婚

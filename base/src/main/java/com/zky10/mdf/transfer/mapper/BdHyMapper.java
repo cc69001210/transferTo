@@ -1,6 +1,6 @@
 package com.zky10.mdf.transfer.mapper;
 
-import com.cc.base.common.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zky10.mdf.transfer.pojo.entity.BdHy;
 import org.apache.ibatis.annotations.Select;
 
