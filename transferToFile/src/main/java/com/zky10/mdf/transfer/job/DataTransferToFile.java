@@ -74,23 +74,23 @@ public class DataTransferToFile implements ApplicationRunner {
                     countDownLatch.countDown();
                 }
             });
-
-            try {
-                log.info("多线程抽取数据执行中。。。请等待。。。。");
-                countDownLatch.await();
-            } catch (Exception e) {
-                log.error("线程等待发生异常。。。。{}", e.getMessage(), e);
-            }
-
-            log.info("【WARN】===== 数据抽取已经完成。。");
-            log.info("【WARN】===== 数据抽取已经完成。。");
-            log.info("【WARN】===== 数据抽取已经完成。。");
-            log.info("【WARN】===== 数据抽取已经完成。。");
-            log.info("【WARN】===== 数据抽取已经完成。。");
-            transferExecutor.shutdown();
-
-            throw new RuntimeException("【数据抽取完成=========== 】手动强制停止所有线程线程！！");
         }
+
+        try {
+            log.info("多线程抽取数据执行中。。。请等待。。。。");
+            countDownLatch.await();
+        } catch (Exception e) {
+            log.error("线程等待发生异常。。。。{}", e.getMessage(), e);
+        }
+
+        log.info("【WARN】===== 数据抽取已经完成。。");
+        log.info("【WARN】===== 数据抽取已经完成。。");
+        log.info("【WARN】===== 数据抽取已经完成。。");
+        log.info("【WARN】===== 数据抽取已经完成。。");
+        log.info("【WARN】===== 数据抽取已经完成。。");
+        transferExecutor.shutdown();
+
+        throw new RuntimeException("【数据抽取完成=========== 】手动强制停止所有线程线程！！");
     }
 
 

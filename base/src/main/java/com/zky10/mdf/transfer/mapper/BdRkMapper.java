@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface BdRkMapper extends BaseMapper<BdRk> {
 
-    @Select(" SELECT ID FROM BD_RK WHERE ROWNUM = 1 ORDER BY ID DESC ")
+    @Select(" SELECT ID FROM (SELECT ID FROM BD_RK ORDER BY ID DESC ) WHERE ROWNUM = 1 ")
     Long getMaxId();
 
 }

@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface BdHyMapper extends BaseMapper<BdHy> {
 
-    @Select(" SELECT ID FROM BD_HY WHERE ROWNUM = 1 ORDER BY ID DESC ")
+    @Select(" SELECT ID FROM (SELECT ID FROM BD_HY ORDER BY ID DESC ) WHERE ROWNUM = 1 ")
     Long getMaxId();
 
 }

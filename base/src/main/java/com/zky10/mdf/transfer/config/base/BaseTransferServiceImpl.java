@@ -28,15 +28,12 @@ public abstract class BaseTransferServiceImpl<M extends BaseMapper<T>, T extends
 
     @Override
     public boolean transferToFile(String tableName) {
-        // 获取分页大小
-        Integer pageSize = Integer.parseInt(Optional.ofNullable(PropertiesConfig.getProperty("page.pageSize")).orElse("1000"));
-        // 获取上次读取到的 记录数
-        Long lastNumber = DateTransferUtil.getLastNumberByTableName(tableName);
-        log.info(" ====== 查询表名：{}，开始id为：{}", tableName, lastNumber);
-
+        log.warn("开始进行表名====={}========的采集", tableName);
+        log.warn("开始进行表名====={}========的采集", tableName);
+        log.warn("开始进行表名====={}========的采集", tableName);
         // 查询最大id，进行分页，每页 pageSize 条
         Long maxId = this.getMaxId();
-//        Long maxId = 100000L;
+//        Long maxId = 1000000000L;
         MyObjectOutputStream outputStream = null;
         try {
             // 获取 写入到文件的输出流 ，参数是 输出的文件
@@ -47,29 +44,40 @@ public abstract class BaseTransferServiceImpl<M extends BaseMapper<T>, T extends
             FileUtil.createFile(fileRecordPath);
             // 创建（移动） 数据文件
             FileUtil.createAndMoveFile(fileDataPath, fileDataBackPath);
+            // 获取上次读取到的 记录数
+            Long lastNumber = DateTransferUtil.getLastNumberByTableName(tableName);
+            // 获取分页大小
+            Integer pageSize = Integer.parseInt(Optional.ofNullable(PropertiesConfig.getProperty("page.pageSize")).orElse("1000"));
+            log.info(" ====== 查询表名：{}，开始id为：{}", tableName, lastNumber);
             outputStream = MyObjectOutputStream.newInstance(fileDataPath);
-            Long maxSize = (maxId - lastNumber) / pageSize; // 总页码 应该为 maxSize + 1
-            for (int i = 0; i <= maxSize; i++) {
-                // sql是   rowNum > start and rowNum < end ,so  end = start + 10000 + 1
+
+            // 数据查询
+            while (true) {
                 long end = lastNumber + pageSize + 1;
-                List<T> list = this.listNeedTransferData(lastNumber, maxId > end ? end : maxId);
+                // sql是   rowNum > start and rowNum < end ,so  end = start + 10000 + 1
+                List<T> list = this.listNeedTransferData(lastNumber, end);
                 if (CollectionUtils.isEmpty(list)) {
-                    log.warn("查询表名：【{}】无新数据产生", tableName);
-                    log.warn("查询表名：【{}】无新数据产生", tableName);
-                    break;
+                    log.debug("本次查询范围：{}，{}，查询无数据",lastNumber,end);
+                } else {
+                    // 将文件序列化到文件
+                    DateTransferUtil.copyObject(outputStream, list);
+                    // 将新的数值写入到文件中
+                    DateTransferUtil.resetLastNumByTableName(tableName, lastNumber);
+                    log.info(" 【INFO】==== 表名：{} ，开始id为：{}", tableName, lastNumber);
                 }
-                // 将文件序列化到文件
-                DateTransferUtil.copyObject(outputStream, list);
-                // 将新的数值写入到文件中
-                DateTransferUtil.resetLastNumByTableName(tableName, lastNumber);
-                log.info(" 【INFO】==== 表名：{} ，总页码：{} ，当前页码：{} ，开始id为：{}", tableName, maxSize, i, lastNumber);
-                // 下次的开始数据
-                if (i != maxSize) {
-                    lastNumber = lastNumber + pageSize;
+
+                // 文件结束判断
+                if (end > maxId) {
+                    log.warn("查询表名：【{}】已经采集完成", tableName);
+                    log.warn("查询表名：【{}】已经采集完成", tableName);
+                    break;
+                } else {
+                    lastNumber += pageSize;
                 }
             }
             log.info("【WARN】 ===== 表名：{}，从ID：{} 开始， 最大id：{}， 输出路径： {} ，end =======", tableName, lastNumber, maxId, fileDataPath);
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             log.error("写入文件失败===={}", e.getMessage(), e);
         } finally {
             if (outputStream != null) {

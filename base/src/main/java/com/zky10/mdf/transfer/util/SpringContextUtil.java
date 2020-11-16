@@ -3,6 +3,8 @@ package com.zky10.mdf.transfer.util;
 import com.zky10.mdf.transfer.config.base.BaseTransferService;
 import com.zky10.mdf.transfer.pojo.TableNameEnum;
 import com.zky10.mdf.transfer.service.BdHyService;
+import com.zky10.mdf.transfer.service.BdRkService;
+import com.zky10.mdf.transfer.service.ZazsYsrkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -32,6 +34,10 @@ public class SpringContextUtil implements ApplicationContextAware {
         switch (tableName) {
             case BD_HY:
                 return APPLICATION_CONTEXT.getBean(BdHyService.class);
+            case BD_RK:
+                return APPLICATION_CONTEXT.getBean(BdRkService.class);
+            case ZAZS_YSRK:
+                return APPLICATION_CONTEXT.getBean(ZazsYsrkService.class);
             default:
                 return null;
         }

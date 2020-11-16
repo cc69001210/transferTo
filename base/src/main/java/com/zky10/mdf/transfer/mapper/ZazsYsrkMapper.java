@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface ZazsYsrkMapper extends BaseMapper<ZazsYsrk> {
 
-    @Select(" SELECT ID FROM ZAZS_YSRK WHERE ROWNUM = 1 ORDER BY ID DESC ")
+    @Select(" SELECT ID FROM (SELECT ID FROM ZAZS_YSRK ORDER BY ID DESC ) WHERE ROWNUM = 1 ")
     Long getMaxId();
 
 }
