@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zky10.mdf.transfer.mapper.BdRkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zky10.mdf.transfer.pojo.entity.BdRk">
+        <result column="ID" property="id" />
+        <result column="XM" property="xm" />
+        <result column="CYM" property="cym" />
+        <result column="XB" property="xb" />
+        <result column="MZ" property="mz" />
+        <result column="CSRQ" property="csrq" />
+        <result column="SFZH" property="sfzh" />
+        <result column="DH" property="dh" />
+        <result column="HJDZ" property="hjdz" />
+        <result column="XZDZ" property="xzdz" />
+        <result column="ZY" property="zy" />
+        <result column="WHCD_DM" property="whcdDm" />
+        <result column="WHCD" property="whcd" />
+        <result column="HYZK_DM" property="hyzkDm" />
+        <result column="HYZK" property="hyzk" />
+        <result column="BYZK_DM" property="byzkDm" />
+        <result column="BYZK" property="byzk" />
+        <result column="LONGITUDE" property="longitude" />
+        <result column="LATITUDE" property="latitude" />
+        <result column="PIC" property="pic" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="MZ_DM" property="mzDm" />
+        <result column="XB_DM" property="xbDm" />
+        <result column="ENTERING_TIME" property="enteringTime" />
+        <result column="HH" property="hh" />
+        <result column="JTGX_MC" property="jtgxMc" />
+        <result column="JTGX_DM" property="jtgxDm" />
+        <result column="GSDDM" property="gsddm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, XM, CYM, XB, MZ, CSRQ, SFZH, DH, HJDZ, XZDZ, ZY, WHCD_DM, WHCD, HYZK_DM, HYZK, BYZK_DM, BYZK, LONGITUDE, LATITUDE, PIC, CREATE_TIME, UPDATE_TIME, MZ_DM, XB_DM, ENTERING_TIME, HH, JTGX_MC, JTGX_DM, GSDDM
+    </sql>
+
+</mapper>

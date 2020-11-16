@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zky10.mdf.transfer.mapper.ZazsYsrkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zky10.mdf.transfer.pojo.entity.ZazsYsrk">
+        <id column="ID" property="id" />
+        <result column="ZXBZDM" property="zxbzdm" />
+        <result column="SYRKLBDM" property="syrklbdm" />
+        <result column="SYRKLBMC" property="syrklbmc" />
+        <result column="HH" property="hh" />
+        <result column="YHZGX" property="yhzgx" />
+        <result column="PCBZ" property="pcbz" />
+        <result column="XM" property="xm" />
+        <result column="WWX" property="wwx" />
+        <result column="WWM" property="wwm" />
+        <result column="XBDM" property="xbdm" />
+        <result column="XBMC" property="xbmc" />
+        <result column="MZDM" property="mzdm" />
+        <result column="MZMC" property="mzmc" />
+        <result column="CSRQ" property="csrq" />
+        <result column="GMSFHM" property="gmsfhm" />
+        <result column="HJD" property="hjd" />
+        <result column="SJJZD" property="sjjzd" />
+        <result column="WCRQ" property="wcrq" />
+        <result column="ZY" property="zy" />
+        <result column="WHCD" property="whcd" />
+        <result column="HGX" property="hgx" />
+        <result column="LXFS" property="lxfs" />
+        <result column="SSQH" property="ssqh" />
+        <result column="WHBSDM" property="whbsdm" />
+        <result column="WHBZMC" property="whbzmc" />
+        <result column="WHSJ" property="whsj" />
+        <result column="ZXBZMC" property="zxbzmc" />
+        <result column="PCRID" property="pcrid" />
+        <result column="PCR" property="pcr" />
+        <result column="REMARK" property="remark" />
+        <result column="STATUS" property="status" />
+        <result column="LNRQ" property="lnrq" />
+        <result column="DJRQ" property="djrq" />
+        <result column="SZDQ" property="szdq" />
+        <result column="XXDZ" property="xxdz" />
+        <result column="QFJ" property="qfj" />
+        <result column="PCS" property="pcs" />
+        <result column="JLX" property="jlx" />
+        <result column="MPH" property="mph" />
+        <result column="RH" property="rh" />
+        <result column="XXJB" property="xxjb" />
+        <result column="FWCS" property="fwcs" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, ZXBZDM, SYRKLBDM, SYRKLBMC, HH, YHZGX, PCBZ, XM, WWX, WWM, XBDM, XBMC, MZDM, MZMC, CSRQ, GMSFHM, HJD, SJJZD, WCRQ, ZY, WHCD, HGX, LXFS, SSQH, WHBSDM, WHBZMC, WHSJ, ZXBZMC, PCRID, PCR, REMARK, STATUS, LNRQ, DJRQ, SZDQ, XXDZ, QFJ, PCS, JLX, MPH, RH, XXJB, FWCS
+    </sql>
+
+</mapper>

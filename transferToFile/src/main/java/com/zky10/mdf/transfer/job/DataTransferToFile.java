@@ -3,7 +3,9 @@ package com.zky10.mdf.transfer.job;
 import com.zky10.mdf.transfer.config.PropertiesConfig;
 import com.zky10.mdf.transfer.config.base.BaseTransferService;
 import com.zky10.mdf.transfer.pojo.TableNameEnum;
+import com.zky10.mdf.transfer.pojo.constant.DataTransferConstant;
 import com.zky10.mdf.transfer.service.BaseSelectService;
+import com.zky10.mdf.transfer.util.FileUtil;
 import com.zky10.mdf.transfer.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +15,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.concurrent.CountDownLatch;
  * @program: transfer
  * @author: cc
  * @Date: 2020-10-30 11:47
- * @Description:
+ * @Description: 进行数据到文件抽取。
  */
 @Component
 @Slf4j
@@ -36,6 +39,12 @@ public class DataTransferToFile implements ApplicationRunner {
     private ThreadPoolTaskExecutor transferExecutor;
 
 
+    /**
+     * 检查需要采集哪些表名
+     *
+     * @param tableStr
+     * @return
+     */
     private List<String> checkTables(String tableStr) {
         if (StringUtils.isBlank(tableStr)) {
             return Collections.emptyList();
@@ -43,19 +52,24 @@ public class DataTransferToFile implements ApplicationRunner {
         return baseSelectService.getExistTables(Arrays.asList(tableStr.split(",")));
     }
 
+    /**
+     * 将表名抽取到文件中。使用的是对象流。
+     *
+     * @param existTables
+     */
     public void dataTransferToFile(List<String> existTables) {
         CountDownLatch countDownLatch = new CountDownLatch(existTables.size());
-        for (String table : existTables) {
+        for (String tableName : existTables) {
             // 获取执行Bean，使用 线程池执行。
-            BaseTransferService transferService = SpringContextUtil.getTableServiceByName(TableNameEnum.getInstanceByName(table));
+            BaseTransferService transferService = SpringContextUtil.getTableServiceByName(TableNameEnum.getInstanceByName(tableName));
             if (transferService == null) {
                 continue;
             }
-            transferExecutor.execute(()-> {
+            transferExecutor.execute(() -> {
                 try {
-                    transferService.transferToFile();
+                    transferService.transferToFile(tableName);
                 } catch (Exception e) {
-
+                    log.error("数据处理过程中发生异常：{}", e.getMessage(), e);
                 } finally {
                     countDownLatch.countDown();
                 }
@@ -79,8 +93,11 @@ public class DataTransferToFile implements ApplicationRunner {
         }
     }
 
+
     @Override
     public void run(ApplicationArguments args) {
+        // 初始化数据，配置文件，运行目录等
+        initPath(PropertiesConfig.getProperty("conf.dir"));
         // 获取要传输的表
         String tableStr = PropertiesConfig.getProperty("tables");
         log.info("======== 要传输的表为：{}", tableStr);
@@ -88,5 +105,19 @@ public class DataTransferToFile implements ApplicationRunner {
         List<String> tables = checkTables(tableStr);
         // 传输数据
         dataTransferToFile(tables);
+    }
+
+    /**
+     * 初始化文件目录
+     *
+     * @param baseDir
+     */
+    private void initPath(String baseDir) {
+        // 创建 数据存放 目录
+        String dataDirPath = baseDir + File.separator + DataTransferConstant.DATA_DIR_NAME;
+        FileUtil.createFile(dataDirPath);
+        // 创建 记录存放 目录
+        String recordDirPath = baseDir + File.separator + DataTransferConstant.RECORD_DIR_NAME;
+        FileUtil.createFile(recordDirPath);
     }
 }

@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum TableNameEnum {
 
-    BD_HY("BD_HY");
+    BD_HY("BD_HY"),
+    BD_RK("BD_RK"),
+    ZAZS_YSRK("ZAZS_YSRK");
 
     private String name;
 

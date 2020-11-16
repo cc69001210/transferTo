@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface BaseTransferService<T> extends IService<T> {
 
-    boolean transferToFile();
+    boolean transferToFile(String tableName);
 
     boolean transferToDB();
 
